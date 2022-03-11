@@ -1,3 +1,10 @@
 .menu-nav-bar {
   background-color: #255868;
 }
+.salon-input:focus {
+  border-color: #4facc9;
+  box-shadow: 0 0 0 0.2rem hsl(194deg 48% 28% / 25%);
+}
+.salon-menu-item {
+  margin-right: 15px;
+}
