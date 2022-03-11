@@ -22,5 +22,6 @@ namespace HairSalon.Models
     public TimeSpan ShiftEnd { get; set; }
 
     public virtual ICollection<Customer> Customers { get; set; }
+
   }
 }

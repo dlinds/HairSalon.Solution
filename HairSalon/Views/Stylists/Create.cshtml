@@ -126,7 +126,6 @@
     </div>
   </div>
   @Html.HiddenFor(model => model.ScheduledDays, new {id = "ScheduledDays"})
-  @*<input type="hidden" value="0,0,0,0,0,0,0" id="ScheduledDays" name="ScheduledDays">*@
   <script>
     $(".schedule-day-of-week-label").on('click', function (event) {
       let daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];

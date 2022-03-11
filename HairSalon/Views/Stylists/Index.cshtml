@@ -10,19 +10,8 @@
   <h3>No stylists have been added yet!</h3>
 }
 
-@* @foreach (Stylist stylist in Model)
-  {
-  <p>@stylist.FirstName</p>
-  <p>@stylist.LastName</p>
-
-  } *@
-
 @for (int x = 0; x < @Model.Count; x++)
 {
-  DateTime shiftStartDateTime = DateTime.Today.Add(Model[x].ShiftStart);
-  string shiftStartTime = shiftStartDateTime.ToString("hh:mm tt");
-  DateTime shiftEndDateTime = DateTime.Today.Add(Model[x].ShiftEnd);
-  string shiftEndTime = shiftEndDateTime.ToString("hh:mm tt");
   if (x == 0 || (x % 2 == 0))
   {
     @:<div class="row">
@@ -52,14 +41,14 @@
           </div>
           <div class="row stylists-row-split">
             <div class="col-6">
-              <strong>Hire Date</strong><br>@Model[x].HireDate
+              <strong>Hire Date</strong><br> @Model[x].HireDate.ToString("MM/dd/yyyy")
             </div>
             <div class="col-6 text-right">
               <strong>Prior Experience</strong><br>@Model[x].PriorExperienceInYears years
             </div>
           </div>
         </div>
-        <div class="card-header text-center bottom-of-stylist-cards"><a class="btn btn-light salon-button" href="stylists/1">Modify</a></div>
+        <div class="card-header text-center bottom-of-stylist-cards"><a class="btn btn-light salon-button" href='stylists/@Model[x].StylistId'>Modify</a></div>
       </div>
     </div>
 
