@@ -3,10 +3,58 @@
 }
 
 <div class="row">
-  <div class="col-lg-4">
-    <h3>Stylists on shift today</h3>
+  <div class="col-lg-5">
+    <h1>On Shift</h1>
+    <div class="row stylists-on-shift">
+      <div class="col">
+        <a href="stylists/1" class="card-links">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">
+                Barbra Streisand
+              </h3>
+              <p class="card-text">
+              <div class="row">
+                <div class="col">
+                  <strong>Speciality</strong>: Buzzcuts
+                </div>
+                <div class="col">
+                  <strong>Scheduled</strong>: 8AM - 5PM
+                </div>
+              </div>
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="row stylists-on-shift">
+      <div class="col">
+        <a href="stylists/1" class="card-links">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="card-title">
+                Barbra Streisand
+              </h3>
+              <p class="card-text">
+              <div class="row">
+                <div class="col">
+                  <strong>Speciality</strong>: Buzzcuts
+                </div>
+                <div class="col">
+                  <strong>Scheduled</strong>: 8AM - 5PM
+                </div>
+              </div>
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
   </div>
-  <div class="col-lg-8">
+  <div class="col-lg-1">
+  </div>
+  <div class="col-lg-6">
     <h1>Customer Quick Add</h1>
     <form action="Customers/Add">
       <div class="form-group">
@@ -22,20 +70,30 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="Stylist">Stylist</label>
-        <select name="Stylist" id="Stylist" class="form-control salon-input">
-          <option value="0">Barbara Streisand</option>
-          <option value="1">Johhny Appleseed</option>
-        </select>
+        <div class="row">
+          <div class="col">
+            <label for="Stylist">Stylist</label>
+            <select name="Stylist" id="Stylist" class="form-control salon-input">
+              <option value="0">Barbara Streisand</option>
+              <option value="1">Johhny Appleseed</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="PreferredCut">Cut Type</label>
+            <select name="PreferredCut" id="PreferredCut" class="form-control salon-input">
+              <option value="0">Buzz Cut</option>
+              <option value="1">Short Cut</option>
+              <option value="2">Long Cut</option>
+              <option value="3">Mohawk</option>
+            </select>
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <label for="Birthday">Birthday</label>
         <input name="Birthday" id="Birthday" type="date" class="form-control salon-input">
       </div>
-      <div class="form-group">
-        <label for="PreferredCut">Preferred Cut</label>
-        <input name="PreferredCut" id="PreferredCut" type="text" class="form-control salon-input">
-      </div>
+      <button class="btn btn-dark">Add Customer</button>
     </form>
   </div>
 </div>
