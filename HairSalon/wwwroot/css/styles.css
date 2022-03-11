@@ -1,6 +1,9 @@
 .menu-nav-bar {
   background-color: #255868;
 }
+.container {
+  margin-top: 15px;
+}
 .salon-input:focus {
   border-color: #4facc9;
   box-shadow: 0 0 0 0.2rem hsl(194deg 48% 28% / 25%);
@@ -35,4 +38,31 @@
 }
 #schedule-days-of-week {
   margin-top: 15px;
+}
+.no-margin-top {
+  margin-top: 0;
+}
+
+.stylists-row-split {
+  margin-top: 15px;
+}
+
+.salon-button {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 1.25rem;
+  color: #ffffff !important;
+  background-color: #255868 !important;
+  font-size: 1.25rem;
+}
+.salon-button:hover {
+  background-color: #183a44 !important;
+}
+.stylist-cards {
+  box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
+  border-radius: 15px;
+}
+.bottom-of-stylist-cards {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
