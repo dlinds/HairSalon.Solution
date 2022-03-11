@@ -18,7 +18,8 @@ namespace HairSalon.Controllers
     public ActionResult Index()
     {
       ViewBag.PageName = "Stylists";
-      return View();
+      List<Stylist> model = _db.Stylists.OrderBy(o => o.Position).ToList();
+      return View(model);
     }
 
     public ActionResult Create()

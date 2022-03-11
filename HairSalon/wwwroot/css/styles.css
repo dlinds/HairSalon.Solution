@@ -61,6 +61,7 @@
 .stylist-cards {
   box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
   border-radius: 15px;
+  margin-top: 30px;
 }
 .bottom-of-stylist-cards {
   border-bottom-left-radius: 15px;

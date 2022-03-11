@@ -39,6 +39,7 @@
             @Html.TextBoxFor(model => model.HireDate, new { @type = "date", @required = "required", @class="form-control form-control-lg"})
           </div>
           <div class="col-6">
+            @Html.TextBoxFor(model => model.Position, new { @required = "required", @class="form-control form-control-lg", placeholder="Position"})
           </div>
         </div>
       </div>
