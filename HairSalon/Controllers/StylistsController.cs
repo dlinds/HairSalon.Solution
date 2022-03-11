@@ -21,13 +21,18 @@ namespace HairSalon.Controllers
       return View();
     }
 
-
-
-
     public ActionResult Create()
     {
       ViewBag.PageName = "Add New";
       return View();
+    }
+
+    [HttpPost]
+    public ActionResult Create(Stylist stylist)
+    {
+      _db.Stylists.Add(stylist);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
 
   }

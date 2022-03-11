@@ -14,3 +14,25 @@
 .stylists-on-shift {
   margin-top: 1rem;
 }
+
+.schedule-day-of-week-label {
+  padding-left: 10px;
+  padding-right: 20px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 1.25rem;
+}
+.schedule-day-of-week-label:not(:disabled):not(.disabled).active,
+.btn-light:not(:disabled):not(.disabled):active,
+.show > .btn-light.dropdown-toggle {
+  color: #ffffff !important;
+  background-color: #255868 !important;
+  font-size: 1.25rem;
+}
+
+.schedule-day-of-week-button {
+  margin: 0px;
+}
+#schedule-days-of-week {
+  margin-top: 15px;
+}
