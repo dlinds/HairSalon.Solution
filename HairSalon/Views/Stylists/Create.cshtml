@@ -1,0 +1,91 @@
+@{
+  Layout = "_Layout";
+}
+
+@model HairSalon.Models.Stylist
+
+<h4>Add a new stylist</h4>
+@using (Html.BeginForm())
+{
+  <div class="row">
+    <div class="col-8">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-6">
+            @Html.TextBoxFor(model => model.FirstName, new { @required = "required", @class="form-control form-control-lg", placeholder = "First Name"})
+          </div>
+          <div class="col-6">
+            @Html.TextBoxFor(model => model.LastName, new { @required = "required", @class="form-control form-control-lg", placeholder = "Last Name"})
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-4">
+            @Html.TextBoxFor(model => model.HireDate, new { @type = "date", @required = "required", @class="form-control form-control-lg", placeholder = "Hire Date"})
+          </div>
+          <div class="col-4">
+            @Html.TextBoxFor(model => model.PriorExperienceInYears, new { @type = "number", @min = 0, @required = "required", @class="form-control form-control-lg", placeholder="Years Experience"})
+          </div>
+          <div class="col-4">
+            @Html.TextBoxFor(model => model.Specialty, new { @type = "num", @required = "required", @class="form-control form-control-lg", placeholder="Specialty" })
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="row">
+        <div class="col-6">
+          <select name="ShiftStart" class="form-control form-control-lg">
+            <option disabled selected value>Shift Start</option>
+            <option>8:00AM</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <select name="ShiftStart" class="form-control form-control-lg">
+            <option disabled selected value>Shift End</option>
+            <option>5:00 PM</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">Sunday</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+            <label class="form-check-label" for="inlineCheckbox2">Monday</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled>
+            <label class="form-check-label" for="inlineCheckbox3">Tuesday</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">Wednesday</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+            <label class="form-check-label" for="inlineCheckbox2">Thursday</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled>
+            <label class="form-check-label" for="inlineCheckbox3">Friday</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" disabled>
+            <label class="form-check-label" for="inlineCheckbox3">Saturday</label>
+          </div>
+          <div data-toggle="buttons">
+            <label class="btn btn-dark">
+              <input type="checkbox" class="invisible" autocomplete="off">Monday
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <input type="submit" value="Add new stylist" class="btn btn-dark" />
+}

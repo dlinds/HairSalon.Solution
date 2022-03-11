@@ -17,6 +17,16 @@ namespace HairSalon.Controllers
 
     public ActionResult Index()
     {
+      ViewBag.PageName = "Stylists";
+      return View();
+    }
+
+
+
+
+    public ActionResult Create()
+    {
+      ViewBag.PageName = "Add New";
       return View();
     }
 

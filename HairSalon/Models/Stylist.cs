@@ -11,7 +11,8 @@ namespace HairSalon.Models
     }
 
     public int StylistId { get; set; }
-    public string Name { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
     public DateTime HireDate { get; set; }
     public string Specialty { get; set; }
     public int PriorExperienceInYears { get; set; }
