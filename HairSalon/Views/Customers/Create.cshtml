@@ -14,7 +14,7 @@
         </div>
         <div class="col">
           <label for="StylistId">Stylist</label>
-          @Html.DropDownList("StylistId", @ViewBag.Stylists as List<SelectListItem>, "Select Stylist",new { @class = "form-control"})
+          @Html.DropDownList("StylistId", @ViewBag.Stylists as List<SelectListItem>, "Select Stylist",new { @class = "form-control", required=""})
         </div>
       </div>
     </div>

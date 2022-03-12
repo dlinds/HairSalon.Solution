@@ -31,7 +31,14 @@
         <td>@customer.Name</td>
         <td>@customer.StylistId</td>
         <td>@customer.Email</td>
-        <td>@String.Format("{0:(###) ###-####}", @customer.Phone)</td>
+        @if (@customer.Phone <= 0)
+        {
+          <td>Unavailable</td>
+        }
+        else
+        {
+          <td>@String.Format("{0:(###) ###-####}", @customer.Phone)</td>
+        }
         <td>@customer.Birthday.ToString("MM/dd/yyyy")</td>
         <td>@customer.TimesVisited</td>
         <td>@customer.PreferredCut</td>
