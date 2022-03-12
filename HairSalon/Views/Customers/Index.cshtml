@@ -19,7 +19,7 @@
       <th scope="col">Email</th>
       <th scope="col">Phone</th>
       <th scope="col">Birthday</th>
-      <th scope="col">Times Visited</th>
+      <th scope="col">Visits</th>
       <th scope="col">Preferred Cut</th>
     </tr>
   </thead>
@@ -30,7 +30,7 @@
         <th scope="row">@customer.CustomerId</th>
         <td>@customer.Name</td>
         <td>@customer.StylistId</td>
-        <td>@customer.Email</td>
+        <td><a href="mailto:@customer.Email" class="link-dark">@customer.Email</a></td>
         @if (@customer.Phone <= 0)
         {
           <td>Unavailable</td>

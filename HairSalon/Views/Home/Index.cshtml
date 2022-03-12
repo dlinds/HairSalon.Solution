@@ -58,7 +58,7 @@
   public string GenerateCardText(Stylist styler)
   {
 
-    string output = "<a href=\"stylists/" + styler.StylistId + "\" class=\"card-links\">";
+    string output = "<a href=\"stylists/details/" + styler.StylistId + "\" class=\"card-links\">";
     output += "<div class=\"card stylists-on-shift\"><div class=\"card-body\"><h3 class=\"card-title\">";
     output += @styler.FirstName + " " + @styler.LastName;
     output += "</h3><p class=\"card-text\">";

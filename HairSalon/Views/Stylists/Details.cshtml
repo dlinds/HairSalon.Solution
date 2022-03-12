@@ -1,0 +1,126 @@
+@{
+  Layout = "_Layout";
+}
+
+@using HairSalon.Models;
+@model HairSalon.Models.Stylist
+
+<div class="row">
+  <div class="col-lg-2">
+  </div>
+  <div class="col-lg-8">
+    <div class="card stylist-cards">
+      <div class="card-body">
+        <div class="row  align-items-end">
+          <div class="col-8">
+            <h3 class="card-title">
+              @Model.FirstName @Model.LastName
+            </h3>
+          </div>
+          <div class="col-4 text-end">
+            <h4 class="card-title">@Model.Position</h4>
+          </div>
+        </div>
+        <hr class="no-margin-top">
+        <div class="row">
+          <div class="col-5">
+            <h5 class="card-text"><strong>Specialty</strong></h5>
+            <p class="card-text">@Model.Specialty</p>
+          </div>
+          <div class="col-7 text-end">
+            <h5 class="card-text"><strong>Schedule</strong></h5>
+            @(DateTime.Today.Add(Model.ShiftStart).ToString("hh:mm tt")) - @(DateTime.Today.Add(Model.ShiftEnd).ToString("hh:mm tt"))<br>
+            @{
+              string schedule = "";
+            }
+            @if (@Model.ScheduledSunday)
+            {
+              schedule += "Sun / ";
+            }
+            @if (@Model.ScheduledMonday)
+            {
+              schedule += "Mon / ";
+            }
+            @if (@Model.ScheduledTuesday)
+            {
+              schedule += "Tues / ";
+            }
+            @if (@Model.ScheduledWednesday)
+            {
+              schedule += "Wed / ";
+            }
+            @if (@Model.ScheduledThursday)
+            {
+              schedule += "Thurs / ";
+            }
+            @if (@Model.ScheduledFriday)
+            {
+              schedule += "Fri / ";
+            }
+            @if (@Model.ScheduledSaturday)
+            {
+              schedule += "Sat / ";
+            }
+            @{
+              schedule = schedule.Remove(schedule.Length - 2, 2);
+            }
+            @schedule
+          </div>
+        </div>
+        <div class="row   mt-5">
+          <div class="col-6">
+            <h5 class="card-text"><strong>Hire Date</strong></h5>@Model.HireDate.ToString("MM/dd/yyyy")
+          </div>
+          <div class="col-6 text-end">
+            <h5 class="card-text"><strong>Prior Experience</strong></h5>@Model.PriorExperienceInYears years
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-2">
+  </div>
+</div>
+<div class="rounded-3 mt-5" style="background-color: #3B6582 !important;">
+  <div class="mb-2 container-fluid py-2">
+    <h1 class="display-5 fw-bold text-center" style="color: #FFF !important;">@Model.FirstName's Customers</h1>
+  </div>
+</div>
+<table class="table table-striped mt-4">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Birthday</th>
+      <th scope="col">Visits</th>
+      <th scope="col">Preferred Cut</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (Customer customer in ViewBag.CustomersList)
+    {
+      if (customer.StylistId == @Model.StylistId)
+      {
+        <tr>
+          <td>@customer.Name</td>
+          <td><a href="mailto:@customer.Email" class="link-dark">@customer.Email</a></td>
+          @if (@customer.Phone <= 0)
+          {
+            <td>Unavailable</td>
+          }
+          else
+          {
+            <td>@String.Format("{0:(###) ###-####}", @customer.Phone)</td>
+          }
+          <td>@customer.Birthday.ToString("MM/dd/yyyy")</td>
+          <td>@customer.TimesVisited</td>
+          <td>@customer.PreferredCut</td>
+        </tr>
+      }
+    }
+  </tbody>
+</table>
+
+
+@* @ViewBag.CustomersList.GetType() *@
