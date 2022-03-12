@@ -72,91 +72,99 @@
 @model HairSalon.Models.Customer;
 <div class="row">
   <div class="col-lg-5">
-    <h1>On Shift</h1>
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-      @{
-        string inserter = "";
-      }
-      @for (int x = 0; x < 7; x++)
-      {
-        inserter += "x"; //for whoever grades this, you can't use integers inside of data-bs-targets, so I generated x, xx, xxx, etc for days from now
-        string dayOutput = DateTime.Today.AddDays(x).ToString("dddd");
-        if (x == 0)
-        {
-          @:<li class="nav-item" role="presentation">
-          @:<button class="nav-link active" id="#@inserter-daysFromNow-tab" data-bs-toggle="tab" data-bs-target="#@inserter-DaysFromNow" type="button" role="tab" aria-controls="#@inserter-daysFromNow" aria-selected="true">Today
-          @:</button></li>
-        }
-        else
-        {
-          @:<li class="nav-item" role="presentation">
-          @:<button class="nav-link" id="#@inserter-daysFromNow-tab" data-bs-toggle="tab" data-bs-target="#@inserter-DaysFromNow" type="button" role="tab" aria-controls="#@inserter-daysFromNow" aria-selected="false">@DateTime.Today.AddDays(x).ToString("dddd")
-          @:</button></li>
-        }
+    <div class="card">
+      <h2 class="card-header text-white menus">
+        On Shift
+      </h2>
+      <div class="card-body">
+        <p class="card-text mt-2 mb-3">View who is scheduled for today and for the next week.</p>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          @{
+            string inserter = "";
+          }
+          @for (int x = 0; x < 7; x++)
+          {
+            inserter += "x"; //for whoever grades this, you can't use integers inside of data-bs-targets, so I generated x, xx, xxx, etc for days from now
+            string dayOutput = DateTime.Today.AddDays(x).ToString("dddd");
+            if (x == 0)
+            {
+              @:<li class="nav-item" role="presentation">
+              @:<button class="nav-link active" id="#@inserter-daysFromNow-tab" data-bs-toggle="tab" data-bs-target="#@inserter-DaysFromNow" type="button" role="tab" aria-controls="#@inserter-daysFromNow" aria-selected="true">Today
+              @:</button></li>
+            }
+            else
+            {
+              @:<li class="nav-item" role="presentation">
+              @:<button class="nav-link" id="#@inserter-daysFromNow-tab" data-bs-toggle="tab" data-bs-target="#@inserter-DaysFromNow" type="button" role="tab" aria-controls="#@inserter-daysFromNow" aria-selected="false">@DateTime.Today.AddDays(x).ToString("dddd")
+              @:</button></li>
+            }
 
-      }
-    </ul>
-    <div class="tab-content" id="myTabContent">
-      @{
-        inserter = "";
-      }
-      @for (int x = 0; x < 7; x++)
-      {
-        inserter += "x";
-        @if (x == 0)
-        {
-          @:<div class="tab-pane fade show active" id="@inserter-DaysFromNow" role="tabpanel" aria-labelledby="home-tab">
-        }
-        else
-        {
-          @:<div class="tab-pane fade" id="@inserter-DaysFromNow" role="tabpanel" aria-labelledby="daysFromNow-tab">
-        }
-        @:<div class="row stylists-on-shift">
-        @:<div class="col">
-        @Html.Raw(FindWhoIsScheduled(DateTime.Today.AddDays(x).ToString("dddd")))
-        @:</div>
-        @:</div>
-        @:</div>
-      }
-
+          }
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          @{
+            inserter = "";
+          }
+          @for (int x = 0; x < 7; x++)
+          {
+            inserter += "x";
+            @if (x == 0)
+            {
+              @:<div class="tab-pane fade show active" id="@inserter-DaysFromNow" role="tabpanel" aria-labelledby="home-tab">
+            }
+            else
+            {
+              @:<div class="tab-pane fade" id="@inserter-DaysFromNow" role="tabpanel" aria-labelledby="daysFromNow-tab">
+            }
+            @:<div class="row stylists-on-shift">
+            @:<div class="col">
+            @Html.Raw(FindWhoIsScheduled(DateTime.Today.AddDays(x).ToString("dddd")))
+            @:</div>
+            @:</div>
+            @:</div>
+          }
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-lg-1">
-    </div>
-    <div class="col-lg-6">
-      <h1>Customer Quick Add</h1>
-      <p>Use this section to quickly add a customer with only the required information. If you'd like to add a customer with more information, please navgiate to the New Customer page from the menu at the top.</p>
-    @using (Html.BeginForm("create", "customers"))
-    {
-        <div class="form-group">
-          <div class="row">
-            <div class="col">
-              <label for="Name">Name</label>
-            @Html.TextBoxFor(model => model.Name, new {@class = "form-control", required = ""})
-            </div>
-            <div class="col">
-              <label for="StylistId">Stylist</label>
-            @Html.DropDownList("StylistId", @ViewBag.ListOfStylists as List<SelectListItem>, "Select Stylist",new { @class = "form-control", required=""})
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="row">
-            <div class="col">
-              <label for="PreferredCut">Cut Type</label>
-            @Html.TextBoxFor(model => model.PreferredCut, new {@class = "form-control", required = ""})
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="Email">Email</label>
-              @Html.TextBoxFor(model => model.Email, new {@class = "form-control", type="email", @required = ""})
+    <div class="col-lg-7">
+      <div class="card">
+        <h2 class="card-header text-white menus">Customer Quick Add</h2>
+        <div class="card-body">
+          <p class="card-text mt-2 mb-3">Use this section to quickly add a customer with only the required information. If you'd like to add a customer with more information, please navgiate to the New Customer page from the menu at the top.</p>
+        @using (Html.BeginForm("create", "customers"))
+        {
+            <div class="form-group">
+              <div class="row">
+                <div class="col">
+                  <label for="Name">Name</label>
+                @Html.TextBoxFor(model => model.Name, new {@class = "form-control", required = ""})
+                </div>
+                <div class="col">
+                  <label for="StylistId">Stylist</label>
+                @Html.DropDownList("StylistId", @ViewBag.ListOfStylists as List<SelectListItem>, "Select Stylist",new { @class = "form-control", required=""})
+                </div>
               </div>
             </div>
-          </div>
+            <div class="form-group">
+              <div class="row mt-4">
+                <div class="col">
+                  <label for="PreferredCut">Cut Type</label>
+                @Html.TextBoxFor(model => model.PreferredCut, new {@class = "form-control", required = ""})
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="Email">Email</label>
+                  @Html.TextBoxFor(model => model.Email, new {@class = "form-control", type="email", @required = ""})
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group text-center">
+              <button class="btn mt-4 salon-button">Add Customer</button>
+            </div>
+        }
         </div>
-        <div class="form-group">
-          <button class="btn btn-dark">Add Customer</button>
-        </div>
-    }
+      </div>
     </div>
   </div>
