@@ -8,7 +8,34 @@
 {
   <h3>No customers have been added yet! Make sure to add a stylist before adding a customer.</h3>
 }
-@foreach (Customer customer in Model)
-{
-  <li>@Html.ActionLink($"{customer.FirstName}", "Details", new { id = customer.CustomerId })</li>
-}
+
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Stylist</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Birthday</th>
+      <th scope="col">Times Visited</th>
+      <th scope="col">Preferred Cut</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (Customer customer in Model)
+    {
+      <tr>
+        <th scope="row">@customer.CustomerId</th>
+        <td>@customer.Name</td>
+        <td>@customer.StylistId</td>
+        <td>@customer.Email</td>
+        <td>@String.Format("{0:(###) ###-####}", @customer.Phone)</td>
+        <td>@customer.Birthday.ToString("MM/dd/yyyy")</td>
+        <td>@customer.TimesVisited</td>
+        <td>@customer.PreferredCut</td>
+      </tr>
+    }
+  </tbody>
+</table>
