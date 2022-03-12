@@ -13,29 +13,34 @@
 }
 .card-links {
   color: black;
+  text-decoration: none;
 }
 .stylists-on-shift {
   margin-top: 1rem;
 }
 
 .schedule-day-of-week-label {
-  padding-left: 10px;
+  padding-left: 20px;
   padding-right: 20px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  border: 1px solid #d9d9d9;
   font-size: 1.25rem;
+  color: black;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
 }
-.schedule-day-of-week-label:not(:disabled):not(.disabled).active,
-.btn-light:not(:disabled):not(.disabled):active,
-.show > .btn-light.dropdown-toggle {
+.schedule-day-of-week-label:active + .btn-outline-primary,
+.btn-check:checked + .btn-outline-primary,
+.btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show,
+.btn-outline-primary:active,
+.schedule-day-of-week-label:hover,
+.schedule-day-of-week-button:hover {
   color: #ffffff !important;
   background-color: #255868 !important;
   font-size: 1.25rem;
+  border-color: #4caecd;
 }
 
-.schedule-day-of-week-button {
-  margin: 0px;
-}
 #schedule-days-of-week {
   margin-top: 15px;
 }
@@ -43,7 +48,8 @@
   margin-top: 0;
 }
 
-.stylists-row-split {
+.stylists-row-split,
+.stylist-info-form-field {
   margin-top: 15px;
 }
 
@@ -66,4 +72,7 @@
 .bottom-of-stylist-cards {
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+}
+.nav-link {
+  color: #000;
 }

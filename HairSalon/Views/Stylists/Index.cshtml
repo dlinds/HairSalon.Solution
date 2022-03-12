@@ -16,7 +16,7 @@
   {
     @:<div class="row">
   }
-    <div class="col-6">
+    <div class="col-lg-6">
       <div class="card stylist-cards">
         <div class="card-body">
           <div class="row  align-items-end">
@@ -25,25 +25,55 @@
               @Model[x].FirstName @Model[x].LastName
               </h3>
             </div>
-            <div class="col-4 text-right">
+            <div class="col-4 text-end">
               <h4 class="card-title">@Model[x].Position</h4>
             </div>
           </div>
           <hr class="no-margin-top">
           <div class="row">
-            <div class="col-4">
+            <div class="col-5">
               <p class="card-text"><strong>Speciality</strong><br>@Model[x].Specialty</p>
             </div>
-            <div class="col-8  text-right">
-              <strong>Scheduled</strong>: @(DateTime.Today.Add(Model[x].ShiftStart).ToString("hh:mm tt")) - @(DateTime.Today.Add(Model[x].ShiftEnd).ToString("hh:mm tt"))<br>
-              Sun / Mon / Tues / Thurs / Fri
+            <div class="col-7 text-end">
+              <strong>Schedule<br></strong>@(DateTime.Today.Add(Model[x].ShiftStart).ToString("hh:mm tt")) - @(DateTime.Today.Add(Model[x].ShiftEnd).ToString("hh:mm tt"))<br>
+              @{string schedule = "";}
+              @if (@Model[x].ScheduledSunday)
+              {
+                schedule += "Sun / ";
+              }
+              @if (@Model[x].ScheduledMonday)
+              {
+                schedule += "Mon / ";
+              }
+              @if (@Model[x].ScheduledTuesday)
+              {
+                schedule += "Tues / ";
+              }
+              @if (@Model[x].ScheduledWednesday)
+              {
+                schedule += "Wed / ";
+              }
+              @if (@Model[x].ScheduledThursday)
+              {
+                schedule += "Thurs / ";
+              }
+              @if (@Model[x].ScheduledFriday)
+              {
+                schedule += "Fri / ";
+              }
+              @if (@Model[x].ScheduledSaturday)
+              {
+                schedule += "Sat / ";
+              }
+              @{schedule = schedule.Remove(schedule.Length - 2, 2);}
+              @schedule
             </div>
           </div>
           <div class="row stylists-row-split">
             <div class="col-6">
               <strong>Hire Date</strong><br> @Model[x].HireDate.ToString("MM/dd/yyyy")
             </div>
-            <div class="col-6 text-right">
+            <div class="col-6 text-end">
               <strong>Prior Experience</strong><br>@Model[x].PriorExperienceInYears years
             </div>
           </div>

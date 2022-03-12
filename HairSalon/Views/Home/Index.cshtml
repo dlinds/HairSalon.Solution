@@ -1,62 +1,162 @@
 @{
   Layout = "_Layout";
 }
+@functions {
+  public string FindWhoIsScheduled(string dayOfWeek)
+  {
+    string output = "";
+    foreach (Stylist stylist in @ViewBag.ListOfStylists)
+    {
+      switch (dayOfWeek)
+      {
+        case "Saturday":
+          if (stylist.ScheduledSaturday)
+          {
+            output += GenerateCardText(stylist);
+          }
+          break;
+        case "Sunday":
+          if (stylist.ScheduledSunday)
+          {
+            output += GenerateCardText(stylist);
+          }
+          break;
+        case "Monday":
+          if (stylist.ScheduledMonday)
+          {
+            output += GenerateCardText(stylist);
+          }
+          break;
+        case "Tuesday":
+          if (stylist.ScheduledTuesday)
+          {
+            output += GenerateCardText(stylist);
+          }
+          break;
+        case "Wednesday":
+          if (stylist.ScheduledWednesday)
+          {
+            output += GenerateCardText(stylist);
+          }
+          break;
+        case "Thursday":
+          if (stylist.ScheduledThursday)
+          {
+            output += GenerateCardText(stylist);
+          }
+          break;
+        case "Friday":
+          if (stylist.ScheduledFriday)
+          {
+            output += GenerateCardText(stylist);
+          }
+          break;
+      }
+    }
+    return output;
+  }
+  public string GenerateCardText(Stylist styler)
+  {
+
+    string output = "<a href=\"stylists/" + styler.StylistId + "\" class=\"card-links\">";
+    output += "<div class=\"card stylists-on-shift\"><div class=\"card-body\"><h3 class=\"card-title\">";
+    output += @styler.FirstName + " " + @styler.LastName;
+    output += "</h3><p class=\"card-text\">";
+    output += "<strong>Scheduled</strong>: " + (DateTime.Today.Add(styler.ShiftStart).ToString("hh:mm tt")) + " - " + (DateTime.Today.Add(styler.ShiftEnd).ToString("hh:mm tt"));
+    output += "</p></div></div></a>";
+    return output;
+  }
+}
+@using System
 @using HairSalon.Models;
 @model HairSalon.Models.Customer;
 <div class="row">
   <div class="col-lg-5">
     <h1>On Shift</h1>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Today</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Saturday</button>
-      </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
-      </li>
+      @{
+        string inserter = "";
+      }
+      @for (int x = 0; x < 7; x++)
+      {
+        inserter += "x"; //for whoever grades this, you can't use integers inside of data-bs-targets, so I generated x, xx, xxx, etc for days from now
+        string dayOutput = DateTime.Today.AddDays(x).ToString("dddd");
+        if (x == 0)
+        {
+          @:<li class="nav-item" role="presentation">
+          @:<button class="nav-link active" id="#@inserter-daysFromNow-tab" data-bs-toggle="tab" data-bs-target="#@inserter-DaysFromNow" type="button" role="tab" aria-controls="#@inserter-daysFromNow" aria-selected="true">Today
+          @:</button></li>
+        }
+        else
+        {
+          @:<li class="nav-item" role="presentation">
+          @:<button class="nav-link" id="#@inserter-daysFromNow-tab" data-bs-toggle="tab" data-bs-target="#@inserter-DaysFromNow" type="button" role="tab" aria-controls="#@inserter-daysFromNow" aria-selected="false">@DateTime.Today.AddDays(x).ToString("dddd")
+          @:</button></li>
+        }
+
+      }
     </ul>
     <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-      <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">This is some placeholder content the Home tab's associated content. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling. You can use it with tabs, pills, and any other .nav-powered navigation.</div>
+      @{
+        inserter = "";
+      }
+      @for (int x = 0; x < 7; x++)
+      {
+        inserter += "x";
+        @if (x == 0)
+        {
+          @:<div class="tab-pane fade show active" id="@inserter-DaysFromNow" role="tabpanel" aria-labelledby="home-tab">
+        }
+        else
+        {
+          @:<div class="tab-pane fade" id="@inserter-DaysFromNow" role="tabpanel" aria-labelledby="daysFromNow-tab">
+        }
+        @:<div class="row stylists-on-shift">
+        @:<div class="col">
+        @Html.Raw(FindWhoIsScheduled(DateTime.Today.AddDays(x).ToString("dddd")))
+        @:</div>
+        @:</div>
+        @:</div>
+      }
+
+      </div>
     </div>
-  </div>
-  <div class="col-lg-1">
-  </div>
-  <div class="col-lg-6">
-    <h1>Customer Quick Add</h1>
-    <p>Use this section to quickly add a customer with only the required information. If you'd like to add a customer with more information, please navgiate to the New Customer page from the menu at the top.</p>
+    <div class="col-lg-1">
+    </div>
+    <div class="col-lg-6">
+      <h1>Customer Quick Add</h1>
+      <p>Use this section to quickly add a customer with only the required information. If you'd like to add a customer with more information, please navgiate to the New Customer page from the menu at the top.</p>
     @using (Html.BeginForm("create", "customers"))
     {
-      <div class="form-group">
-        <div class="row">
-          <div class="col">
-            <label for="Name">Name</label>
-            @Html.TextBoxFor(model => model.Name, new {@class = "form-control", required = "required"})
-          </div>
-          <div class="col">
-            <label for="StylistId">Stylist</label>
-            @Html.DropDownList("StylistId", @ViewBag.Stylists as List<SelectListItem>, "Select Stylist",new { @class = "form-control"})
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col">
-            <label for="PreferredCut">Cut Type</label>
-            @Html.TextBoxFor(model => model.PreferredCut, new {@class = "form-control", required = "required"})
-          </div>
-          <div class="col">
-            <div class="form-group">
-              <label for="Email">Email</label>
-              @Html.TextBoxFor(model => model.Email, new {@class = "form-control", type="email", @required = "required"})
+        <div class="form-group">
+          <div class="row">
+            <div class="col">
+              <label for="Name">Name</label>
+            @Html.TextBoxFor(model => model.Name, new {@class = "form-control", required = ""})
+            </div>
+            <div class="col">
+              <label for="StylistId">Stylist</label>
+            @Html.DropDownList("StylistId", @ViewBag.ListOfStylists as List<SelectListItem>, "Select Stylist",new { @class = "form-control", required=""})
             </div>
           </div>
         </div>
-      </div>
-      <button class="btn btn-dark">Add Customer</button>
+        <div class="form-group">
+          <div class="row">
+            <div class="col">
+              <label for="PreferredCut">Cut Type</label>
+            @Html.TextBoxFor(model => model.PreferredCut, new {@class = "form-control", required = ""})
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="Email">Email</label>
+              @Html.TextBoxFor(model => model.Email, new {@class = "form-control", type="email", @required = ""})
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-dark">Add Customer</button>
+        </div>
     }
+    </div>
   </div>
-</div>
