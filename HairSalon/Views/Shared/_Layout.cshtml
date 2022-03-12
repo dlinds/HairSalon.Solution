@@ -45,7 +45,12 @@
       </div>
     </div>
   </nav>
-  <div class="container">
+  <div class="mt-1 container">
+    <div class="bg-light rounded-3" style="background-color: #604A64 !important;">
+      <div class="mb-2 container-fluid py-5">
+        <h1 class="display-5 fw-bold text-center" style="color: #FFF !important;">@ViewBag.PageName</h1>
+      </div>
+    </div>
     @RenderBody()
   </div>
   @* @await Html.PartialAsync("Footer") *@
