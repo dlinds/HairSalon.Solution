@@ -11,6 +11,6 @@ namespace HairSalon.Models
     public int Phone { get; set; }
     public DateTime Birthday { get; set; }
     public int TimesVisited { get; set; }
-    public string PreferredCut { get; set; }
+    public int HaircutTypeId { get; set; }
   }
 }

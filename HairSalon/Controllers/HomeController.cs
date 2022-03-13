@@ -22,6 +22,7 @@ namespace HairSalon.Controllers
       // List<Stylist> stylists = new List<Stylist> { };
       ViewBag.StylistId = new SelectList(_db.Stylists, "StylistId", "FirstName");
       ViewBag.ListOfStylists = _db.Stylists.OrderBy(model => model.ShiftStart).ToList();
+      ViewBag.ListOfHaircuts = _db.HaircutTypes.ToList();
       ViewBag.PageName = "Home";
       return View();
     }

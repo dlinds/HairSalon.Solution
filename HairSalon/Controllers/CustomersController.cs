@@ -20,12 +20,16 @@ namespace HairSalon.Controllers
     {
       ViewBag.PageName = "Customers";
       List<Customer> model = _db.Customers.ToList();
+      ViewBag.ListOfHaircuts = _db.HaircutTypes.ToList();
+      ViewBag.ListOfStylists = _db.Stylists.ToList();
       return View(model);
     }
 
     public ActionResult Create()
     {
       ViewBag.PageName = "Add Customer";
+      ViewBag.ListOfHaircuts = _db.HaircutTypes.ToList();
+      ViewBag.ListOfStylists = _db.Stylists.ToList();
       ViewBag.StylistId = new SelectList(_db.Stylists, "StylistId", "FirstName");
       return View();
     }

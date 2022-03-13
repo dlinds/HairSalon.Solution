@@ -14,7 +14,13 @@
         </div>
         <div class="col">
           <label for="StylistId">Stylist</label>
-          @Html.DropDownList("StylistId", @ViewBag.Stylists as List<SelectListItem>, "Select Stylist",new { @class = "form-control", required=""})
+          <select name="StylistId" id="StylistId" class="form-control" required>
+            <option Selected Disabled>Select a Stylist</option>
+            @foreach (Stylist stylist in ViewBag.ListOfStylists)
+            {
+              <option value="@stylist.StylistId">@stylist.FirstName @stylist.LastName</option>
+            }
+          </select>
         </div>
       </div>
     </div>
@@ -38,7 +44,13 @@
         </div>
         <div class="col">
           <label for="PreferredCut">Preferred Cut</label>
-          @Html.TextBoxFor(model => model.PreferredCut, new {@class = "form-control"})
+          <select name="HaircutTypeId" id="HaircutTypeId" class="form-control" required>
+            <option Selected Disabled>Select a Haircut Type</option>
+            @foreach (HaircutType haircutType in ViewBag.ListOfHaircuts)
+            {
+              <option value="@haircutType.HaircutTypeId">@haircutType.Name ($@haircutType.Cost)</option>
+            }
+          </select>
         </div>
         <div class="col">
           <label for="TimesVisited">Number of Previous Visits</label>

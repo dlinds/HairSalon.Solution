@@ -31,7 +31,16 @@
       <tr>
         <td>@customer.CustomerId</td>
         <td>@customer.Name</td>
-        <td>@customer.StylistId</td>
+        <td>@foreach (Stylist stylist in ViewBag.ListOfStylists)
+          {
+            if (customer.StylistId == stylist.StylistId)
+            {
+              @stylist.FirstName
+              @(" ")
+              @stylist.LastName
+            }
+          }
+        </td>
         <td><a href="mailto:@customer.Email" class="link-dark">@customer.Email</a></td>
         @if (@customer.Phone <= 0)
         {
@@ -43,7 +52,14 @@
         }
         <td>@customer.Birthday.ToString("MM/dd/yyyy")</td>
         <td>@customer.TimesVisited</td>
-        <td>@customer.PreferredCut</td>
+        <td>@foreach (HaircutType haircutType in ViewBag.ListOfHaircuts)
+          {
+            if (customer.HaircutTypeId == haircutType.HaircutTypeId)
+            {
+              @haircutType.Name
+            }
+          }
+        </td>
       </tr>
     }
   </tbody>
