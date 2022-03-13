@@ -24,7 +24,7 @@
   <div class="col-lg-2">
   </div>
   <div class="col-lg-8">
-    <div class="card stylist-cards pb-4">
+    <div class="card stylist-cards">
       <div class="card-header menus top-of-stylist-cards text-white py-3 mb-2">
         <div class="row  align-items-end">
           <div class="col-8">
@@ -279,10 +279,35 @@
           </div>
         </div>
       </div>
+      <div class="card-header text-center bottom-of-stylist-cards">
+        <a class="btn btn-light salon-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Delete
+        </a>
+      </div>
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <form action="../Delete" method="post">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete @Model.FirstName @Model.LastName</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body py-5 text-center">
+                Are you sure you want to delete @Model.FirstName @Model.LastName?
+              </div>
+              <div class="modal-footer">
+                <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</a>
+                <input type="hidden" name="deleteStylistId" id="deleteStylistId" value="@Model.StylistId">
+                <button type="submit" class="btn salon-button-small">Confirm</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="col-lg-2">
-  </div>
+</div>
+<div class="col-lg-2">
+</div>
 </div>
 <div class="rounded-3 mt-5" style="background-color: #7C77B9 !important;">
   <div class="mb-2 container-fluid py-2">
