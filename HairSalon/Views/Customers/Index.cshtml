@@ -9,17 +9,19 @@
   <h3>No customers have been added yet! Make sure to add a stylist before adding a customer.</h3>
 }
 
-
-<table class="table table-striped">
+@* Table Sort from Bootstrap-Table
+  https://github.com/wenzhixin/bootstrap-table
+*@
+<table table data-toggle="table" data-classes="table table-hover table-condensed" data-striped="true" data-sort-name="Quality" data-sort-order="desc">
   <thead class="thead-dark">
     <tr>
       <th scope="col">Id</th>
-      <th scope="col">Name</th>
+      <th scope="col" data-sortable="true">Name</th>
       <th scope="col">Stylist</th>
       <th scope="col">Email</th>
       <th scope="col">Phone</th>
-      <th scope="col">Birthday</th>
-      <th scope="col">Visits</th>
+      <th scope="col" data-sortable="true">Birthday</th>
+      <th scope="col" data-sortable="true">Visits</th>
       <th scope="col">Preferred Cut</th>
     </tr>
   </thead>
@@ -27,7 +29,7 @@
     @foreach (Customer customer in Model)
     {
       <tr>
-        <th scope="row">@customer.CustomerId</th>
+        <td>@customer.CustomerId</td>
         <td>@customer.Name</td>
         <td>@customer.StylistId</td>
         <td><a href="mailto:@customer.Email" class="link-dark">@customer.Email</a></td>
