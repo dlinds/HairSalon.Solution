@@ -4,75 +4,278 @@
 
 @using HairSalon.Models;
 @model HairSalon.Models.Stylist
-
+<div class="row mt-4">
+  <div class="col-lg-2">
+  </div>
+  <div class="col-lg-8">
+    <p>Use this page to view or modify @Model.FirstName @Model.LastName's information.</p>
+    <p>To modify, simply click on a text field such as <strong>
+        @foreach (HaircutType haircutType in ViewBag.ListOfHaircuts)
+          if (@Model.HaircutTypeId == haircutType.HaircutTypeId)
+          {
+            @haircutType.Name
+          }
+      </strong>below, make the changes, and hit Update.</p>
+  </div>
+  <div class="col-lg-2">
+  </div>
+</div>
 <div class="row">
   <div class="col-lg-2">
   </div>
   <div class="col-lg-8">
-    <div class="card stylist-cards">
-      <div class="card-body">
+    <div class="card stylist-cards pb-4">
+      <div class="card-header menus top-of-stylist-cards text-white py-3 mb-2">
         <div class="row  align-items-end">
           <div class="col-8">
-            <h3 class="card-title">
+            <h2 class="card-title text-start">
               @Model.FirstName @Model.LastName
-            </h3>
+            </h2>
           </div>
           <div class="col-4 text-end">
             <h4 class="card-title">@Model.Position</h4>
           </div>
         </div>
-        <hr class="no-margin-top">
+      </div>
+      <div class="card-body">
         <div class="row">
           <div class="col-5">
             <h5 class="card-text"><strong>Specialty</strong></h5>
-            <p class="card-text">@Model.Specialty</p>
+            <p class="card-text" id="labelSpecialty">
+              @foreach (HaircutType haircutType in ViewBag.ListOfHaircuts)
+                if (@Model.HaircutTypeId == haircutType.HaircutTypeId)
+                {
+                  @haircutType.Name
+                }
+            </p>
+            <div id="specialtyForm" class="invisible form-group mb-1">
+              <form action="../EditHairCutType" method="post">
+                <select name="haircutTypeId" id="haircutTypeId" class="form-control" required>
+                  <option Selected Disabled>Select a New Specialty</option>
+                  @foreach (HaircutType haircutType in ViewBag.ListOfHaircuts)
+                  {
+                    <option value="@haircutType.HaircutTypeId">@haircutType.Name ($@haircutType.Cost)</option>
+                  }
+                </select>
+                <input type="hidden" name="haircutTypeStylistId" id="haircutTypeStylistId" value="@Model.StylistId">
+                <div class="row mt-2">
+                  <div class="col-4">
+                    <button type="submit" class="btn salon-button-small">Update</button>
+                  </div>
+                  <div class="col-8">
+                    <div id="cancelSpecialtyChange" class="btn salon-button-small">Cancel</div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <script>
+              $("#labelSpecialty").on('click', function (event) {
+                $("#labelSpecialty").hide();
+                $("#specialtyForm").removeClass("invisible");
+                $("#hireDateRow").addClass("mt-5");
+              });
+              $("#cancelSpecialtyChange").on('click', function (event) {
+                $("#labelSpecialty").show();
+                $("#specialtyForm").addClass("invisible");
+                $("#hireDateRow").removeClass("mt-5");
+              });
+            </script>
           </div>
           <div class="col-7 text-end">
             <h5 class="card-text"><strong>Schedule</strong></h5>
-            @(DateTime.Today.Add(Model.ShiftStart).ToString("hh:mm tt")) - @(DateTime.Today.Add(Model.ShiftEnd).ToString("hh:mm tt"))<br>
-            @{
-              string schedule = "";
-            }
-            @if (@Model.ScheduledSunday)
-            {
-              schedule += "Sun / ";
-            }
-            @if (@Model.ScheduledMonday)
-            {
-              schedule += "Mon / ";
-            }
-            @if (@Model.ScheduledTuesday)
-            {
-              schedule += "Tues / ";
-            }
-            @if (@Model.ScheduledWednesday)
-            {
-              schedule += "Wed / ";
-            }
-            @if (@Model.ScheduledThursday)
-            {
-              schedule += "Thurs / ";
-            }
-            @if (@Model.ScheduledFriday)
-            {
-              schedule += "Fri / ";
-            }
-            @if (@Model.ScheduledSaturday)
-            {
-              schedule += "Sat / ";
-            }
-            @{
-              schedule = schedule.Remove(schedule.Length - 2, 2);
-            }
-            @schedule
+            <div id="scheduleText">
+              @(DateTime.Today.Add(Model.ShiftStart).ToString("hh:mm tt")) - @(DateTime.Today.Add(Model.ShiftEnd).ToString("hh:mm tt"))<br>
+              @{
+                string schedule = "";
+              }
+              @if (@Model.ScheduledSunday)
+              {
+                schedule += "Sun / ";
+              }
+              @if (@Model.ScheduledMonday)
+              {
+                schedule += "Mon / ";
+              }
+              @if (@Model.ScheduledTuesday)
+              {
+                schedule += "Tues / ";
+              }
+              @if (@Model.ScheduledWednesday)
+              {
+                schedule += "Wed / ";
+              }
+              @if (@Model.ScheduledThursday)
+              {
+                schedule += "Thurs / ";
+              }
+              @if (@Model.ScheduledFriday)
+              {
+                schedule += "Fri / ";
+              }
+              @if (@Model.ScheduledSaturday)
+              {
+                schedule += "Sat / ";
+              }
+              @{
+                schedule = schedule.Remove(schedule.Length - 2, 2);
+              }
+              @schedule
+
+            </div>
+            <div id="scheduleFormContainer" class="form-group mb-1" style="display:none;">
+              <form action="../EditSchedule" method="post">
+                <div class="row">
+                  <div class="col-6">
+                    <select class="form-control stylist-info-form-field" data-val="true" data-val-required="The ShiftStart field is required." id="ShiftStart" name="ShiftStart" required="required">
+                      <option disabled="disabled" selected="selected">Shift Start</option>
+                      <option value="08:00:00">8:00 AM</option>
+                      <option value="08:30:00">8:30 AM</option>
+                      <option value="09:00:00">9:00 AM</option>
+                      <option value="09:30:00">9:30 AM</option>
+                      <option value="10:00:00">10:00 AM</option>
+                      <option value="10:30:00">10:30 AM</option>
+                      <option value="11:00:00">11:00 AM</option>
+                      <option value="11:30:00">11:30 AM</option>
+                      <option value="12:00:00">12:00 PM</option>
+                      <option value="12:30:00">12:30 PM</option>
+                      <option value="13:00:00">1:00 PM</option>
+                      <option value="13:30:00">1:30 PM</option>
+                      <option value="14:00:00">2:00 PM</option>
+                      <option value="14:30:00">2:30 PM</option>
+                      <option value="15:00:00">3:00 PM</option>
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <select class="form-control stylist-info-form-field" data-val="true" data-val-required="The ShiftEnd field is required." id="ShiftEnd" name="ShiftEnd" required="required">
+                      <option disabled="disabled" selected="selected">Shift End</option>
+                      <option value="13:00:00">1:00 PM</option>
+                      <option value="13:30:00">1:30 PM</option>
+                      <option value="14:00:00">2:00 PM</option>
+                      <option value="14:30:00">2:30 PM</option>
+                      <option value="15:00:00">3:00 PM</option>
+                      <option value="15:30:00">3:30 PM</option>
+                      <option value="16:00:00">4:00 PM</option>
+                      <option value="16:30:00">4:30 PM</option>
+                      <option value="17:00:00">5:00 PM</option>
+                      <option value="17:30:00">5:30 PM</option>
+                      <option value="18:00:00">6:00 PM</option>
+                      <option value="18:30:00">6:30 PM</option>
+                      <option value="19:00:00">7:00 PM</option>
+                      <option value="19:30:00">7:30 PM</option>
+                      <option value="20:00:00">8:00 PM</option>
+                      <option value="20:30:00">8:30 PM</option>
+                      <option value="21:00:00">9:00 PM</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row" id="schedule-days-of-week">
+                  <div class="col">
+                    <div data-toggle="buttons">
+                      <input autocomplete="off" class="btn-check salon-button" data-val="true" data-val-required="The ScheduledSunday field is required." id="ScheduledSunday" name="ScheduledSunday" type="checkbox" value="true">
+                      <label class="btn btn-outline-primary schedule-day-of-week-label-small " for="ScheduledSunday">Sunday</label>
+                      <input autocomplete="off" class="btn-check salon-button" data-val="true" data-val-required="The ScheduledMonday field is required." id="ScheduledMonday" name="ScheduledMonday" type="checkbox" value="true">
+                      <label class="btn btn-outline-primary schedule-day-of-week-label-small " for="ScheduledMonday">Monday</label>
+                      <input autocomplete="off" class="btn-check salon-button" data-val="true" data-val-required="The ScheduledTuesday field is required." id="ScheduledTuesday" name="ScheduledTuesday" type="checkbox" value="true">
+                      <label class="btn btn-outline-primary schedule-day-of-week-label-small " for="ScheduledTuesday">Tuesday</label>
+                      <input autocomplete="off" class="btn-check salon-button" data-val="true" data-val-required="The ScheduledWednesday field is required." id="ScheduledWednesday" name="ScheduledWednesday" type="checkbox" value="true">
+                      <label class="btn btn-outline-primary schedule-day-of-week-label-small " for="ScheduledWednesday">Wednesday</label>
+                      <input autocomplete="off" class="btn-check salon-button" data-val="true" data-val-required="The ScheduledThursday field is required." id="ScheduledThursday" name="ScheduledThursday" type="checkbox" value="true">
+                      <label class="btn btn-outline-primary schedule-day-of-week-label-small " for="ScheduledThursday">Thursday</label>
+                      <input autocomplete="off" class="btn-check salon-button" data-val="true" data-val-required="The ScheduledFriday field is required." id="ScheduledFriday" name="ScheduledFriday" type="checkbox" value="true">
+                      <label class="btn btn-outline-primary schedule-day-of-week-label-small " for="ScheduledFriday">Friday</label>
+                      <input autocomplete="off" class="btn-check salon-button" data-val="true" data-val-required="The ScheduledSaturday field is required." id="ScheduledSaturday" name="ScheduledSaturday" type="checkbox" value="true">
+                      <label class="btn btn-outline-primary schedule-day-of-week-label-small " for="ScheduledSaturday">Saturday</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-8">
+                    <button type="submit" class="btn salon-button-small">Update</button>
+                  </div>
+                  <div class="col-4">
+                    <div id="cancelScheduleChange" class="btn salon-button-small">Cancel</div>
+                  </div>
+                </div>
+                <input type="hidden" name="scheduleStylistId" id="scheduleStylistId" value="@Model.StylistId">
+              </form>
+            </div>
+            <script>
+              $("#scheduleText").on('click', function (event) {
+                $("#scheduleText").hide();
+                $("#scheduleFormContainer").show();
+              });
+              $("#cancelScheduleChange").on('click', function (event) {
+                $("#scheduleText").show();
+                $("#scheduleFormContainer").hide();
+              });
+            </script>
           </div>
         </div>
-        <div class="row   mt-5">
+        <div class="row" id="hireDateRow">
           <div class="col-6">
-            <h5 class="card-text"><strong>Hire Date</strong></h5>@Model.HireDate.ToString("MM/dd/yyyy")
+            <h5 class="card-text"><strong>Hire Date</strong></h5>
+            <p class="card-text" id="labelHireDate">@Model.HireDate.ToString("MM/dd/yyyy")</p>
+            <div id="hireDateForm" class="form-group mb-1" style="display:none;">
+              <form action="../EditHireDate" method="post">
+                <label for="HireDate">Select a new hire date</label>
+                <input type="hidden" name="hireDateStylistId" id="hireDateStylistId" value="@Model.StylistId">
+                <input type="date" class="form-control" name="newHireDate">
+                <div class="row mt-2">
+                  <div class="col-4">
+                    <button type="submit" class="btn salon-button-small">Update</button>
+                  </div>
+                  <div class="col-8">
+                    <div id="cancelHireDateChange" class="btn salon-button-small">Cancel</div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <script>
+              $("#labelHireDate").on('click', function (event) {
+                $("#labelHireDate").hide();
+                $("#hireDateForm").show();
+              });
+              $("#cancelHireDateChange").on('click', function (event) {
+                $("#labelHireDate").show();
+                $("#hireDateForm").hide();
+              });
+            </script>
           </div>
           <div class="col-6 text-end">
-            <h5 class="card-text"><strong>Prior Experience</strong></h5>@Model.PriorExperienceInYears years
+            <h5 class="card-text"><strong>Prior Experience</strong></h5>
+            <p class="card-text" id="labelPriorExperience">@Model.PriorExperienceInYears years</p>
+            <div id="priorExperienceForm" class="form-group mb-1" style="display:none;">
+              <form action="../EditNumYears" method="post">
+                <label for="expYearsStylistId">Change the amount of years</label>
+                <input type="hidden" name="expYearsStylistId" id="expYearsStylistId" value="@Model.StylistId">
+                <div class="row mt-2 align-items-end">
+                  <div class="col-5">
+                  </div>
+                  <div class="col-4">
+                    <input type="number" class="form-control" name="newExpYears" required="required" min="0">
+                  </div>
+                  <div class="col-3 text-start">Years</div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-8">
+                    <button type="submit" class="btn salon-button-small">Update</button>
+                  </div>
+                  <div class="col-4">
+                    <div id="cancelPriorExpChange" class="btn salon-button-small">Cancel</div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <script>
+              $("#labelPriorExperience").on('click', function (event) {
+                $("#labelPriorExperience").hide();
+                $("#priorExperienceForm").show();
+              });
+              $("#cancelPriorExpChange").on('click', function (event) {
+                $("#labelPriorExperience").show();
+                $("#priorExperienceForm").hide();
+              });
+            </script>
           </div>
         </div>
       </div>
@@ -81,9 +284,9 @@
   <div class="col-lg-2">
   </div>
 </div>
-<div class="rounded-3 mt-5" style="background-color: #3B6582 !important;">
+<div class="rounded-3 mt-5" style="background-color: #7C77B9 !important;">
   <div class="mb-2 container-fluid py-2">
-    <h1 class="display-5 fw-bold text-center" style="color: #FFF !important;">@Model.FirstName's Customers</h1>
+    <h1 class="display-5 text-center" style="color: #FFF !important;">@Model.FirstName's Customers</h1>
   </div>
 </div>
 <table class="table table-striped mt-4">

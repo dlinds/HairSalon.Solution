@@ -33,7 +33,12 @@
           <hr class="no-margin-top">
           <div class="row">
             <div class="col-5">
-              <p class="card-text"><strong>Speciality</strong><br>@Model[x].Specialty</p>
+              <p class="card-text"><strong>Speciality</strong><br>
+              @foreach (HaircutType haircutType in ViewBag.ListOfHaircuts)
+                if (Model[x].HaircutTypeId == haircutType.HaircutTypeId)
+                {
+                  @haircutType.Name
+                }</p>
             </div>
             <div class="col-7 text-end">
               <strong>Schedule<br></strong>@(DateTime.Today.Add(Model[x].ShiftStart).ToString("hh:mm tt")) - @(DateTime.Today.Add(Model[x].ShiftEnd).ToString("hh:mm tt"))<br>

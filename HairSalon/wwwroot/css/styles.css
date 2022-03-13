@@ -1,5 +1,5 @@
 .menus {
-  background-color: #255868;
+  background-color: #1d8a99;
 }
 
 .salon-input:focus {
@@ -26,16 +26,26 @@
   margin-right: 0.5em;
   margin-top: 0.5em;
 }
+
+.schedule-day-of-week-label-small {
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid #d9d9d9;
+  color: black;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
+}
 .schedule-day-of-week-label:active + .btn-outline-primary,
 .btn-check:checked + .btn-outline-primary,
 .btn-outline-primary.active,
 .btn-outline-primary.dropdown-toggle.show,
 .btn-outline-primary:active,
 .schedule-day-of-week-label:hover,
-.schedule-day-of-week-button:hover {
+.schedule-day-of-week-button:hover,
+.schedule-day-of-week-label-small:hover,
+.schedule-day-of-week-label-small:active {
   color: #ffffff !important;
   background-color: #255868 !important;
-  font-size: 1.25rem;
   border-color: #4caecd;
 }
 
@@ -56,10 +66,14 @@
   padding-right: 20px;
   font-size: 1.25rem;
   color: #ffffff !important;
-  background-color: #255868 !important;
-  font-size: 1.25rem;
+  background-color: #1d8a99 !important;
 }
-.salon-button:hover {
+.salon-button-small {
+  color: #ffffff !important;
+  background-color: #1d8a99 !important;
+}
+.salon-button:hover,
+.salon-button-small:hover {
   background-color: #183a44 !important;
 }
 .stylist-cards {
@@ -70,6 +84,11 @@
 .bottom-of-stylist-cards {
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+}
+.top-of-stylist-cards {
+  border-top-left-radius: 15px !important;
+  border-top-right-radius: 15px !important;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
 }
 .nav-link {
   color: #000;
