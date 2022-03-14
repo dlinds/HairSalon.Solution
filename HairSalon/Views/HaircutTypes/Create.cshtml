@@ -3,10 +3,10 @@
 }
 @using HairSalon.Models;
 @model HairSalon.Models.HaircutType
-<div class="px-5 mt-5">
+<div class="px-5 py-5 bg-light">
   @using (Html.BeginForm())
   {
-    <div class=" form-group">
+    <div class="form-group px-5">
       <div class="row">
         <div class="col">
           <label for="Name">Haircut Style Name</label>
@@ -22,6 +22,8 @@
         </div>
       </div>
     </div>
-    <input type="submit" value="Add new type" class="btn btn-light schedule-day-of-week-label" />
+    <div class="form-group px-5 mt-3">
+      <input type="submit" value="Add new type" class="btn btn-light salon-button-small" />
+    </div>
   }
 </div>
