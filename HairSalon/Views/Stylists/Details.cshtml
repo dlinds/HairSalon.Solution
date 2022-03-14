@@ -280,16 +280,16 @@
         </div>
       </div>
       <div class="card-header text-center bottom-of-stylist-cards">
-        <a class="btn btn-light salon-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <a class="btn btn-light salon-button" data-bs-toggle="modal" data-bs-target="#deleteModal">
           Delete
         </a>
       </div>
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <form action="../Delete" method="post">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete @Model.FirstName @Model.LastName</h5>
+                <h5 class="modal-title" id="deleteModalLabel">Delete @Model.FirstName @Model.LastName</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body py-5 text-center">

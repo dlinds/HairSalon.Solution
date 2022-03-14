@@ -22,6 +22,7 @@ namespace HairSalon.Controllers
       List<Customer> model = _db.Customers.ToList();
       ViewBag.ListOfHaircuts = _db.HaircutTypes.ToList();
       ViewBag.ListOfStylists = _db.Stylists.ToList();
+      ViewBag.StylistId = new SelectList(_db.Stylists, "StylistId", "FirstName");
       return View(model);
     }
 
@@ -38,6 +39,23 @@ namespace HairSalon.Controllers
     public ActionResult Create(Customer customer)
     {
       _db.Customers.Add(customer);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public ActionResult Edit(Customer customer)
+    {
+      _db.Entry(customer).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public ActionResult Delete(int deleteCustomerId)
+    {
+      Customer thisCustomer = _db.Customers.FirstOrDefault(customer => customer.CustomerId == deleteCustomerId);
+      _db.Customers.Remove(thisCustomer);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }

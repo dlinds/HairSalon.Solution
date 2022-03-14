@@ -8,7 +8,7 @@ namespace HairSalon.Models
     public int StylistId { get; set; }
     public string Name { get; set; }
     public string Email { get; set; }
-    public int Phone { get; set; }
+    public long Phone { get; set; }
     public DateTime Birthday { get; set; }
     public int TimesVisited { get; set; }
     public int HaircutTypeId { get; set; }

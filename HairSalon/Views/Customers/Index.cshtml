@@ -15,33 +15,150 @@
 <table table data-toggle="table" data-classes="table table-hover table-condensed" data-striped="true" data-sort-name="Quality" data-sort-order="desc">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">Id</th>
+      <th scope="col" class="text-center">Edit</th>
+      <th scope="col" class="text-center">Del</th>
       <th scope="col" data-sortable="true">Name</th>
       <th scope="col">Stylist</th>
+      <th scope="col">Preferred Cut</th>
       <th scope="col">Email</th>
       <th scope="col">Phone</th>
       <th scope="col" data-sortable="true">Birthday</th>
       <th scope="col" data-sortable="true">Visits</th>
-      <th scope="col">Preferred Cut</th>
     </tr>
   </thead>
   <tbody>
     @foreach (Customer customer in Model)
     {
       <tr>
-        <td>@customer.CustomerId</td>
+        <td class="text-center">
+          <button type="button" class="btn btn-dark salon-button-small" data-bs-toggle="modal" data-bs-target="#edit-@customer.CustomerId">
+            🖉
+          </button>
+          <div class="modal fade" id="edit-@customer.CustomerId" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editModalLabel">Edit @customer.Name</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  @using (Html.BeginForm("Edit", "Customers"))
+                  {
+                    <div class="px-5 text-start">
+                      <div class="form-group mt-3">
+                        <label for="Name">Name</label>
+                        @Html.TextBoxFor(model => customer.Name, new {@class = "form-control", required = "required"})
+                      </div>
+                      <div class="form-group mt-3">
+                        <label for="StylistId">Stylist</label>
+                        <select name="customer.StylistId" id="StylistId" class="form-control" required>
+                          <option Selected Disabled>Select a Stylist</option>
+                          @foreach (Stylist stylist in ViewBag.ListOfStylists)
+                          {
+                            if (stylist.StylistId == customer.StylistId)
+                            {
+                              <option selected="selected" value="@stylist.StylistId">@stylist.FirstName @stylist.LastName</option>
+                            }
+                            else
+                            {
+                              <option value="@stylist.StylistId">@stylist.FirstName @stylist.LastName</option>
+                            }
+                          }
+                        </select>
+                      </div>
+                      <div class="form-group mt-3">
+                        <label for="PhoneNumber">Phone Number</label>
+                        @Html.TextBoxFor(model => customer.Phone, new {@class = "form-control", type="number", min=1000000000, max=9999999999, placeholder="ex: 1231234567"})
+                      </div>
+                      <div class="form-group mt-3">
+                        <label for="Email">Email</label>
+                        @Html.TextBoxFor(model => customer.Email, new {@class = "form-control", type="email", @required = "required"})
+                      </div>
+                      <div class="form-group mt-3">
+                        <label for="Birthday">Birthday</label>
+                        @{
+                          string birthday = @customer.Birthday.ToString("yyyy-MM-dd");
+                        }
+                        <input type="date" value="@birthday"  name="customer.Birthday" id="@customer.CustomerId-Birthday" class="form-control" required="required">
+                      </div>
+                        <div class="form-group mt-3">
+                        <label for="PreferredCut">Preferred Cut</label>
+                        <select name="customer.HaircutTypeId" id="HaircutTypeId" class="form-control" required>
+                          @foreach (HaircutType haircutType in ViewBag.ListOfHaircuts)
+                          {
+                            if (haircutType.HaircutTypeId == customer.HaircutTypeId)
+                            {
+                              <option selected="selected" value="@haircutType.HaircutTypeId">@haircutType.Name ($@haircutType.Cost)</option>
+                            }
+                            else
+                            {
+                              <option value="@haircutType.HaircutTypeId">@haircutType.Name ($@haircutType.Cost)</option>
+                            }
+                          }
+                        </select>
+                      </div>
+                      <div class="form-group mt-3">
+                        <label for="TimesVisited">Number of Previous Visits</label>
+                        @Html.EditorFor(model => customer.TimesVisited, new {@class = "form-control", type="number", min=0, placeholder=customer.TimesVisited, id=customer.HaircutTypeId + "timesVisited"})
+                      </div>
+                    </div>
+                    <div class="modal-footer mt-4">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn salon-button-small">Save Changes</button>
+                    </div>
+                    @Html.HiddenFor(model => customer.CustomerId)
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td class="text-center">
+          <button type="button" class="btn btn-dark salon-button-small" data-bs-toggle="modal" data-bs-target="#delete-@customer.CustomerId">
+            ⊠
+          </button>
+          <div class="modal fade" id="delete-@customer.CustomerId" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <form action="customers/delete/" method="post">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete @customer.Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body py-5 text-center">
+                    Are you sure you want to delete @customer.Name?
+                  </div>
+                  <div class="modal-footer">
+                    <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</a>
+                    <input type="hidden" name="deleteCustomerId" id="@customer.CustomerId-deleteCustomerId" value="@customer.CustomerId">
+                    <button type="submit" class="btn salon-button-small">Confirm</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </td>
         <td>@customer.Name</td>
         <td>@foreach (Stylist stylist in ViewBag.ListOfStylists)
           {
             if (customer.StylistId == stylist.StylistId)
             {
+              @:<a href="../stylists/details/@stylist.StylistId" class="link-dark">
               @stylist.FirstName
               @(" ")
               @stylist.LastName
+              @:</a>
             }
           }
         </td>
-        <td><a href="mailto:@customer.Email" class="link-dark">@customer.Email</a></td>
+        <td>@foreach (HaircutType haircutType in ViewBag.ListOfHaircuts)
+          {
+            if (customer.HaircutTypeId == haircutType.HaircutTypeId)
+            {
+              @haircutType.Name
+            }
+          }
+        </td>
+        <td><a href=" mailto:@customer.Email" class="link-dark">@customer.Email</a></td>
         @if (@customer.Phone <= 0)
         {
           <td>Unavailable</td>
@@ -52,15 +169,12 @@
         }
         <td>@customer.Birthday.ToString("MM/dd/yyyy")</td>
         <td>@customer.TimesVisited</td>
-        <td>@foreach (HaircutType haircutType in ViewBag.ListOfHaircuts)
-          {
-            if (customer.HaircutTypeId == haircutType.HaircutTypeId)
-            {
-              @haircutType.Name
-            }
-          }
-        </td>
       </tr>
     }
   </tbody>
 </table>
+<div class="row mt-3">
+  <div class="col text-center">
+    <a href="customers/create" class="text-dark">Add New</a>
+  </div>
+</div>
