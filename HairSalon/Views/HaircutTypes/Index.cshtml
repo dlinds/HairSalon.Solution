@@ -31,7 +31,13 @@
             </div>
           </div>
         </div>
-        <div class="card-header text-center bottom-of-stylist-cards"><a class="btn btn-light salon-button" href='stylists/details/'>Modify</a></div>
+        <div class="card-header text-center bottom-of-stylist-cards">
+          @using (Html.BeginForm("Delete", "HaircutTypes"))
+          {
+            <input type="hidden" value="@Model[x].HaircutTypeId" name="haircutTypeId">
+            <button type="submit" class="btn btn-light salon-button">Delete</button>
+          }
+          </div>
       </div>
     </div>
 

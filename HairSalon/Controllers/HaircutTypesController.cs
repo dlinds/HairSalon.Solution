@@ -37,9 +37,9 @@ namespace HairSalon.Controllers
     }
 
     [HttpPost, ActionName("Delete")]
-    public ActionResult DeleteConfirmed(int deleteHaircutType)
+    public ActionResult DeleteConfirmed(int haircutTypeId)
     {
-      HaircutType thisHaircut = _db.HaircutTypes.FirstOrDefault(haircutType => haircutType.HaircutTypeId == deleteHaircutType);
+      HaircutType thisHaircut = _db.HaircutTypes.FirstOrDefault(haircutType => haircutType.HaircutTypeId == haircutTypeId);
       _db.HaircutTypes.Remove(thisHaircut);
       _db.SaveChanges();
       return RedirectToAction("Index");
