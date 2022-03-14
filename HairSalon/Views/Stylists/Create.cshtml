@@ -1,141 +1,135 @@
 @{
   Layout = "_Layout";
 }
-
+@using HairSalon.Models;
 @model HairSalon.Models.Stylist
+<div class="bg-light pb-5">
 
-<h1>Add a new stylist</h1>
-@using (Html.BeginForm())
-{
-  <div class="row">
-    <div class="col-7">
-      <h2>Stylist Information</h2>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-6">
-            @Html.TextBoxFor(model => model.FirstName, new { @required = "required", @class="form-control form-control-lg stylist-info-form-field", placeholder = "First Name"})
-          </div>
-          <div class="col-6">
-            @Html.TextBoxFor(model => model.LastName, new { @required = "required", @class="form-control form-control-lg stylist-info-form-field", placeholder = "Last Name"})
+  @using (Html.BeginForm())
+  {
+    <div class="row px-5 py-5">
+      <div class="col-12">
+        <h2 class="heading-2">Information</h2>
+        <hr>
+        <div class="form-group">
+          <div class="row px-5">
+            <div class="col-6">
+              @Html.TextBoxFor(model => model.FirstName, new { @required = "required", @class="form-control stylist-info-form-field", placeholder = "First Name"})
+            </div>
+            <div class="col-6">
+              @Html.TextBoxFor(model => model.LastName, new { @required = "required", @class="form-control stylist-info-form-field", placeholder = "Last Name"})
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-6">
-            @Html.TextBoxFor(model => model.PriorExperienceInYears, new { @type = "number", @min = 0, @required = "required", @class="form-control form-control-lg stylist-info-form-field", placeholder="Years Experience"})
-          </div>
-          <div class="col-6">
-            @Html.TextBoxFor(model => model.HaircutTypeId, new { @type = "num", @required = "required", @class="form-control form-control-lg stylist-info-form-field", placeholder="Specialty" })
+        <div class="form-group">
+          <div class="row px-5">
+            <div class="col-6">
+              @Html.TextBoxFor(model => model.PriorExperienceInYears, new { @type = "number", @min = 0, @required = "required", @class="form-control stylist-info-form-field", placeholder="Years Experience"})
+            </div>
+            <div class="col-6">
+              @* @Html.TextBoxFor(model => model.HaircutTypeId, new { @type = "num", @required = "required", @class="form-control stylist-info-form-field", placeholder="Specialty" }) *@
+              <select name="HaircutTypeId" id="HaircutTypeId" class="form-control stylist-info-form-field" required>
+                <option Selected Disabled>Select a Specialty</option>
+                @foreach (HaircutType haircutType in ViewBag.ListOfHaircuts)
+                {
+                  <option value="@haircutType.HaircutTypeId">@haircutType.Name ($@haircutType.Cost)</option>
+                }
+              </select>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-6">
-
-            @Html.TextBoxFor(model => model.HireDate, new { @type = "date", @required = "required", @class="form-control form-control-lg stylist-info-form-field"})
-            <label for="HireDate" class="col-form-label col-form-label-md">Hire Date</label>
-          </div>
-          <div class="col-6">
-            @Html.TextBoxFor(model => model.Position, new { @required = "required", @class="form-control form-control-lg stylist-info-form-field", placeholder="Position"})
+        <div class="form-group">
+          <div class="row px-5">
+            <div class="col-6">
+              @Html.TextBoxFor(model => model.HireDate, new { @type = "text", @required = "required", @class="form-control stylist-info-form-field", placeholder="Hire Date", onfocus="(this.type = 'date')"})
+            </div>
+            <div class="col-6">
+              @Html.TextBoxFor(model => model.Position, new { @required = "required", @class="form-control stylist-info-form-field", placeholder="Position"})
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-5">
-      <h2>Stylist Schedule</h2>
-      <div class="row">
-        <div class="col-6">
-          @Html.DropDownList("ShiftStart", new List<SelectListItem>
-        {
-        new SelectListItem { Text = "Shift Start", Selected=true, Disabled=true},
-        new SelectListItem { Text = "8:00 AM", Value = "08:00:00"},
-        new SelectListItem { Text = "8:30 AM", Value = "08:30:00"},
-        new SelectListItem { Text = "9:00 AM", Value = "09:00:00"},
-        new SelectListItem { Text = "9:30 AM", Value = "09:30:00"},
-        new SelectListItem { Text = "10:00 AM", Value = "10:00:00"},
-        new SelectListItem { Text = "10:30 AM", Value = "10:30:00"},
-        new SelectListItem { Text = "11:00 AM", Value = "11:00:00"},
-        new SelectListItem { Text = "11:30 AM", Value = "11:30:00"},
-        new SelectListItem { Text = "12:00 PM", Value = "12:00:00"},
-        new SelectListItem { Text = "12:30 PM", Value = "12:30:00"},
-        new SelectListItem { Text = "1:00 PM", Value = "13:00:00"},
-        new SelectListItem { Text = "1:30 PM", Value = "13:30:00"},
-        new SelectListItem { Text = "2:00 PM", Value = "14:00:00"},
-        new SelectListItem { Text = "2:30 PM", Value = "14:30:00"},
-        new SelectListItem { Text = "3:00 PM", Value = "15:00:00"}
-        }, new { @required = "required", @class="form-control form-control-lg stylist-info-form-field"})
-        </div>
-        <div class="col-6">
-          @Html.DropDownList("ShiftEnd", new List<SelectListItem>
-        {
-        new SelectListItem { Text = "Shift End", Selected=true, Disabled=true},
-        new SelectListItem { Text = "1:00 PM", Value = "13:00:00"},
-        new SelectListItem { Text = "1:30 PM", Value = "13:30:00"},
-        new SelectListItem { Text = "2:00 PM", Value = "14:00:00"},
-        new SelectListItem { Text = "2:30 PM", Value = "14:30:00"},
-        new SelectListItem { Text = "3:00 PM", Value = "15:00:00"},
-        new SelectListItem { Text = "3:30 PM", Value = "15:30:00"},
-        new SelectListItem { Text = "4:00 PM", Value = "16:00:00"},
-        new SelectListItem { Text = "4:30 PM", Value = "16:30:00"},
-        new SelectListItem { Text = "5:00 PM", Value = "17:00:00"},
-        new SelectListItem { Text = "5:30 PM", Value = "17:30:00"},
-        new SelectListItem { Text = "6:00 PM", Value = "18:00:00"},
-        new SelectListItem { Text = "6:30 PM", Value = "18:30:00"},
-        new SelectListItem { Text = "7:00 PM", Value = "19:00:00"},
-        new SelectListItem { Text = "7:30 PM", Value = "19:30:00"},
-        new SelectListItem { Text = "8:00 PM", Value = "20:00:00"},
-        new SelectListItem { Text = "8:30 PM", Value = "20:30:00"},
-        new SelectListItem { Text = "9:00 PM", Value = "21:00:00"}
-        }, new { @required = "required", @class="form-control form-control-lg stylist-info-form-field"})
-        </div>
-      </div>
-      <div class="row" id="schedule-days-of-week">
-        <div class="col">
-          <div data-toggle="buttons">
+    <div class="row px-5">
+      <div class="col-12">
+        <h2 class="heading-2">Schedule</h2>
+        <hr>
 
-            @Html.CheckBoxFor(model => model.ScheduledSunday, new {@class="btn-check schedule-day-of-week-button", autocomplete="off"})
-            @Html.LabelFor(model => model.ScheduledSunday, "Sunday", new {@class="btn btn-outline-primary schedule-day-of-week-label"})
-            @Html.CheckBoxFor(model => model.ScheduledMonday, new {@class="btn-check schedule-day-of-week-button", autocomplete="off"})
-            @Html.LabelFor(model => model.ScheduledMonday, "Monday", new {@class="btn btn-outline-primary schedule-day-of-week-label"})
-            @Html.CheckBoxFor(model => model.ScheduledTuesday, new {@class="btn-check schedule-day-of-week-button", autocomplete="off"})
-            @Html.LabelFor(model => model.ScheduledTuesday, "Tuesday", new {@class="btn btn-outline-primary schedule-day-of-week-label"})
-            @Html.CheckBoxFor(model => model.ScheduledWednesday, new {@class="btn-check schedule-day-of-week-button", autocomplete="off"})
-            @Html.LabelFor(model => model.ScheduledWednesday, "Wednesday", new {@class="btn btn-outline-primary schedule-day-of-week-label"})
-            @Html.CheckBoxFor(model => model.ScheduledThursday, new {@class="btn-check schedule-day-of-week-button", autocomplete="off"})
-            @Html.LabelFor(model => model.ScheduledThursday, "Thursday", new {@class="btn btn-outline-primary schedule-day-of-week-label"})
-            @Html.CheckBoxFor(model => model.ScheduledFriday, new {@class="btn-check schedule-day-of-week-button", autocomplete="off"})
-            @Html.LabelFor(model => model.ScheduledFriday, "Friday", new {@class="btn btn-outline-primary schedule-day-of-week-label"})
-            @Html.CheckBoxFor(model => model.ScheduledSaturday, new {@class="btn-check schedule-day-of-week-button", autocomplete="off"})
-            @Html.LabelFor(model => model.ScheduledSaturday, "Saturday", new {@class="btn btn-outline-primary schedule-day-of-week-label"})
+        <div class="row px-5">
+          <h6 class="heading-6 mt-3 mb-0">Hours</h6>
+          <div class="col-6">
+            @Html.DropDownList("ShiftStart", new List<SelectListItem>
+          {
+          new SelectListItem { Text = "Shift Start", Selected=true, Disabled=true},
+          new SelectListItem { Text = "8:00 AM", Value = "08:00:00"},
+          new SelectListItem { Text = "8:30 AM", Value = "08:30:00"},
+          new SelectListItem { Text = "9:00 AM", Value = "09:00:00"},
+          new SelectListItem { Text = "9:30 AM", Value = "09:30:00"},
+          new SelectListItem { Text = "10:00 AM", Value = "10:00:00"},
+          new SelectListItem { Text = "10:30 AM", Value = "10:30:00"},
+          new SelectListItem { Text = "11:00 AM", Value = "11:00:00"},
+          new SelectListItem { Text = "11:30 AM", Value = "11:30:00"},
+          new SelectListItem { Text = "12:00 PM", Value = "12:00:00"},
+          new SelectListItem { Text = "12:30 PM", Value = "12:30:00"},
+          new SelectListItem { Text = "1:00 PM", Value = "13:00:00"},
+          new SelectListItem { Text = "1:30 PM", Value = "13:30:00"},
+          new SelectListItem { Text = "2:00 PM", Value = "14:00:00"},
+          new SelectListItem { Text = "2:30 PM", Value = "14:30:00"},
+          new SelectListItem { Text = "3:00 PM", Value = "15:00:00"}
+          }, new { @required = "required", @class="form-control stylist-info-form-field"})
+          </div>
+          <div class="col-6">
+            @Html.DropDownList("ShiftEnd", new List<SelectListItem>
+          {
+          new SelectListItem { Text = "Shift End", Selected=true, Disabled=true},
+          new SelectListItem { Text = "1:00 PM", Value = "13:00:00"},
+          new SelectListItem { Text = "1:30 PM", Value = "13:30:00"},
+          new SelectListItem { Text = "2:00 PM", Value = "14:00:00"},
+          new SelectListItem { Text = "2:30 PM", Value = "14:30:00"},
+          new SelectListItem { Text = "3:00 PM", Value = "15:00:00"},
+          new SelectListItem { Text = "3:30 PM", Value = "15:30:00"},
+          new SelectListItem { Text = "4:00 PM", Value = "16:00:00"},
+          new SelectListItem { Text = "4:30 PM", Value = "16:30:00"},
+          new SelectListItem { Text = "5:00 PM", Value = "17:00:00"},
+          new SelectListItem { Text = "5:30 PM", Value = "17:30:00"},
+          new SelectListItem { Text = "6:00 PM", Value = "18:00:00"},
+          new SelectListItem { Text = "6:30 PM", Value = "18:30:00"},
+          new SelectListItem { Text = "7:00 PM", Value = "19:00:00"},
+          new SelectListItem { Text = "7:30 PM", Value = "19:30:00"},
+          new SelectListItem { Text = "8:00 PM", Value = "20:00:00"},
+          new SelectListItem { Text = "8:30 PM", Value = "20:30:00"},
+          new SelectListItem { Text = "9:00 PM", Value = "21:00:00"}
+          }, new { @required = "required", @class="form-control stylist-info-form-field"})
+          </div>
+        </div>
+        <div class="row px-5" id="schedule-days-of-week">
+          <div class="col">
+            <h6 class="heading-6 mt-3">Scheduled</h6>
+
+            <div data-toggle="buttons">
+              @Html.CheckBoxFor(model => model.ScheduledSunday, new {@class="btn-check", autocomplete="off"})
+              @Html.LabelFor(model => model.ScheduledSunday, "Sunday", new {@class="btn btn-outline-primary schedule-day-of-week-label-small "})
+              @Html.CheckBoxFor(model => model.ScheduledMonday, new {@class="btn-check", autocomplete="off"})
+              @Html.LabelFor(model => model.ScheduledMonday, "Monday", new {@class="btn btn-outline-primary schedule-day-of-week-label-small "})
+              @Html.CheckBoxFor(model => model.ScheduledTuesday, new {@class="btn-check", autocomplete="off"})
+              @Html.LabelFor(model => model.ScheduledTuesday, "Tuesday", new {@class="btn btn-outline-primary schedule-day-of-week-label-small "})
+              @Html.CheckBoxFor(model => model.ScheduledWednesday, new {@class="btn-check", autocomplete="off"})
+              @Html.LabelFor(model => model.ScheduledWednesday, "Wednesday", new {@class="btn btn-outline-primary schedule-day-of-week-label-small "})
+              @Html.CheckBoxFor(model => model.ScheduledThursday, new {@class="btn-check", autocomplete="off"})
+              @Html.LabelFor(model => model.ScheduledThursday, "Thursday", new {@class="btn btn-outline-primary schedule-day-of-week-label-small "})
+              @Html.CheckBoxFor(model => model.ScheduledFriday, new {@class="btn-check", autocomplete="off"})
+              @Html.LabelFor(model => model.ScheduledFriday, "Friday", new {@class="btn btn-outline-primary schedule-day-of-week-label-small "})
+              @Html.CheckBoxFor(model => model.ScheduledSaturday, new {@class="btn-check", autocomplete="off"})
+              @Html.LabelFor(model => model.ScheduledSaturday, "Saturday", new {@class="btn btn-outline-primary schedule-day-of-week-label-small "})
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <script>
-    $(".schedule-day-of-week-label").on('click', function (event) {
-      let daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-      let scheduledDays = "";
-      daysOfWeek.forEach(function (day) {
-        if (day == "Saturday") {
-          if ($('#' + day).is(":checked")) {
-            scheduledDays += "1"
-          } else {
-            scheduledDays += "0";
-          }
-        } else {
-          if ($('#' + day).is(":checked")) {
-            scheduledDays += "1,"
-          } else {
-            scheduledDays += "0,";
-          }
-        }
-      });
-      $("#ScheduledDays").attr("value", scheduledDays);
-    });
-
-  </script>
-  <input type="submit" value="Add new stylist" class="btn btn-light schedule-day-of-week-label" />
-}
+    <div class="row mt-5">
+      <div class="col-12 text-center px-5">
+        <input type="submit" value="Add new stylist" class="text-center btn btn-light salon-button-small" />
+      </div>
+    </div>
+  }
+</div>

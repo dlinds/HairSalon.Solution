@@ -27,6 +27,7 @@ namespace HairSalon.Controllers
     public ActionResult Create()
     {
       ViewBag.PageName = "Add New";
+      ViewBag.ListOfHaircuts = _db.HaircutTypes.ToList();
       return View();
     }
 

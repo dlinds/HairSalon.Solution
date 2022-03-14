@@ -36,6 +36,15 @@ namespace HairSalon.Controllers
       return RedirectToAction("Index");
     }
 
+    [HttpPost, ActionName("Delete")]
+    public ActionResult DeleteConfirmed(int deleteHaircutType)
+    {
+      HaircutType thisHaircut = _db.HaircutTypes.FirstOrDefault(haircutType => haircutType.HaircutTypeId == deleteHaircutType);
+      _db.HaircutTypes.Remove(thisHaircut);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
   }
 
 }
