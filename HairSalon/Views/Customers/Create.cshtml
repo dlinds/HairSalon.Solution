@@ -3,6 +3,13 @@
 }
 @using HairSalon.Models;
 @model HairSalon.Models.Customer
+@if (ViewBag.ListOfStylists.Count < 0) {
+  <div class="px-5 py-5 bg-light">
+    <h3 class="heading-3">You haven't yet added a stylist. Please do so <a class="text-dark" href="/stylists">here</a> before adding a customer</h3>
+  </div>
+}
+else
+{
 <div class="px-5 py-5 bg-light">
   @using (Html.BeginForm())
   {
@@ -65,3 +72,4 @@
 
   }
 </div>
+}
