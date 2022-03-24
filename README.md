@@ -18,6 +18,8 @@
 
 This is a C# web application for a salon. Once run, the site will allow the owner, Claire, to manage both stylists and customers. The application is written in C# and uses the .NET 5.0 web framework.
 
+To view a live version of this project, please navigate to http://salon.dlinds.com:6001. If the site is offline, it is likely due to Dynamic DNS not having my current IP address at home. A script should update the DDNS entry every four hours, so please try again in a short while (or clone/run the project on your own). If it is still not up after four hours, please shoot me a message on Github and I will correct the issue!
+
 <br>
 
 # Setup/Installation Requirements
